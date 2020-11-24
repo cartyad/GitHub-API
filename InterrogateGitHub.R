@@ -157,3 +157,8 @@ for(i in 1:length(user_ids))
   }
   next
 }
+
+#Use plotly to graph
+
+Sys.setenv("plotly_username"="cartyad")
+Sys.setenv("plotly_api_key"="LIZIJHuZ3vUpowXGoCMj")
