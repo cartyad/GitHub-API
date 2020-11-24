@@ -76,3 +76,7 @@ femurrayData$following
 femurrayData$public_repos 
 femurrayData$bio 
 
+
+#Part 2 - Visualisations
+'For this part of the assignment, I have elcted to visualise and analyse a separate account to my own.My account is quite new 
+and lacks adequate data. So through a google search of active github users, I have selected andrew, Andrew Nesbitt'
