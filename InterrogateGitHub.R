@@ -61,3 +61,6 @@ repos = fromJSON("https://api.github.com/users/cartyad/repos")
 repos$name 
 repos$created_at  
 repos$full_name 
+
+#Displays my bio from the myData 
+myData$bio
