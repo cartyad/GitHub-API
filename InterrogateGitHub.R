@@ -14,3 +14,11 @@ oauth_endpoints("github")
 myapp <- oauth_app(appname = "Access",
                    key = "9a8a24172a1e568def5a",
                    secret = "fd35fadf067cf3046be9a84cef4de4a05b81d1d8")
+
+# Get OAuth credentials
+github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
+
+# Use API
+?config
+gtoken <- config(token = github_token)
+req <- GET("https://api.github.com/users/cartyad/repos", gtoken)

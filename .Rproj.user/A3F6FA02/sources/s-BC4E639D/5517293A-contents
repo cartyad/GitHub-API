@@ -1,8 +1,8 @@
-install.packages("jsonlite")
+#install.packages("jsonlite")
 library(jsonlite)
-install.packages("httpuv")
+#install.packages("httpuv")
 library(httpuv)
-install.packages("httr")
+#install.packages("httr")
 library(httr)
 
 
@@ -17,3 +17,8 @@ myapp <- oauth_app(appname = "Access",
 
 # Get OAuth credentials
 github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
+
+# Use API
+?config
+gtoken <- config(token = github_token)
+req <- GET("https://api.github.com/users/cartyad/repos", gtoken)
