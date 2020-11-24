@@ -64,3 +64,7 @@ repos$full_name
 
 #Displays my bio from the myData 
 myData$bio
+
+#Extracts and displays the data regarding my LowestCommonAncestor project
+LCARepos <- fromJSON("https://api.github.com/repos/cartyad/LowestCommonAncestor/commits")
+LCARepos$commit$message 
