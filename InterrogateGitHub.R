@@ -52,3 +52,12 @@ myData$following
 #Uses fromJSON() to assign the data regarding the accounts I follow to the variable following
 following = fromJSON("https://api.github.com/users/cartyad/following")
 following$login 
+
+#This extracts the public repositories which I have attached to my GitHub account from the myData variable
+myData$public_repos
+
+#Gives of the names of my public repositories, details of the dates the repositories were created and names of repositiories
+repos = fromJSON("https://api.github.com/users/cartyad/repos")
+repos$name 
+repos$created_at  
+repos$full_name 
