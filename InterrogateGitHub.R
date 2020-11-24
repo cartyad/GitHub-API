@@ -219,3 +219,4 @@ languageDF = as.data.frame(top10Languages)
 #Plot 3 Top 10 Languages
 plot3 = plot_ly(data = languageDF, x = languageDF$languages, y = languageDF$Freq, type = "bar")
 plot3
+api_create(plot3, filename = "10 Most Popular Languages")
