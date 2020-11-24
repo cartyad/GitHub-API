@@ -86,3 +86,7 @@ stop_for_status(myData)
 extract = content(myData)
 githubDB = jsonlite::fromJSON(jsonlite::toJSON(extract))
 githubDB$login
+
+#Extract the usernames of the followers  
+id = githubDB$login
+user_ids = c(id)

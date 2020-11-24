@@ -84,6 +84,9 @@ and lacks adequate data. So through a google search of active github users, I ha
 myData = GET("https://api.github.com/users/andrew/followers?per_page=100;", gtoken)
 stop_for_status(myData)
 extract = content(myData)
-#converts into dataframe
 githubDB = jsonlite::fromJSON(jsonlite::toJSON(extract))
 githubDB$login
+
+#Extract the usernames of the followers  
+id = githubDB$login
+user_ids = c(id)
