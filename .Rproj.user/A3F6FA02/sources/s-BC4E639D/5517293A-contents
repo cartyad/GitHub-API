@@ -40,5 +40,7 @@ gitDF[gitDF$full_name == "cartyad/datasharing", "created_at"]
 
 
 myData = fromJSON("https://api.github.com/users/cartyad")
-myData$followers 
-
+myData$followers
+#Acquire the usernames of all of the people who follow my GitHub Account
+followers = fromJSON("https://api.github.com/users/cartyad/followers")
+followers$login 
