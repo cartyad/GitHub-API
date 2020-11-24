@@ -210,3 +210,7 @@ for (i in 1:length(users))
   }
   next
 }
+
+#Adds the previously ascertained 10 most popular languages to a table top10Languages
+allLanguages = sort(table(languages), increasing=TRUE)
+top10Languages = allLanguages[(length(allLanguages)-9):length(allLanguages)]
