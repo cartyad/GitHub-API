@@ -1,8 +1,8 @@
-install.packages("jsonlite")
+#install.packages("jsonlite")
 library(jsonlite)
-install.packages("httpuv")
+#install.packages("httpuv")
 library(httpuv)
-install.packages("httr")
+#install.packages("httr")
 library(httr)
 
 
@@ -22,3 +22,19 @@ github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
 ?config
 gtoken <- config(token = github_token)
 req <- GET("https://api.github.com/users/cartyad/repos", gtoken)
+
+
+# Extract content from a request
+json1 = content(req)
+
+# Convert to a data.frame
+gitDF = jsonlite::fromJSON(jsonlite::toJSON(json1))
+
+# Subset data.frame
+gitDF[gitDF$full_name == "cartyad/datasharing", "created_at"] 
+
+
+
+# The code above was sourced from Michael Galarnyk's blog, found at:
+# https://towardsdatascience.com/accessing-data-from-github-api-using-r-3633fb62cb08
+
