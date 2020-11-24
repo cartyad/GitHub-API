@@ -38,3 +38,5 @@ gitDF[gitDF$full_name == "cartyad/datasharing", "created_at"]
 # The code above was sourced from Michael Galarnyk's blog, found at:
 # https://towardsdatascience.com/accessing-data-from-github-api-using-r-3633fb62cb08
 
+
+myData = fromJSON("https://api.github.com/users/cartyad")s
