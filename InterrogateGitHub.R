@@ -98,5 +98,62 @@ usersDB = data.frame(
   following = integer(),
   followers = integer(),
   repos = integer(),
-  dateCreated = integer()
-)
+  dateCreated = integer())
+
+
+#Create and execution of a for loop which adds users to the list
+for(i in 1:length(user_ids))
+{
+  
+  followingURL = paste("https://api.github.com/users/", user_ids[i], "/following", sep = "")
+  followingRequest = GET(followingURL, gtoken)
+  followingContent = content(followingRequest)
+  
+  #This If statement determines if a user has no followers, it skips over to the next
+  if(length(followingContent) == 0)
+  {
+    next
+  }
+  
+  followingDF = jsonlite::fromJSON(jsonlite::toJSON(followingContent))
+  followingLogin = followingDF$login
+  
+  #Execute a loop to iterate through the following users to the account
+  for (j in 1:length(followingLogin))
+  {
+    #If statement to ensure the list does not contain duplicate values and adds those to the list 
+    if (is.element(followingLogin[j], users) == FALSE)
+    {
+      users[length(users) + 1] = followingLogin[j]
+      
+      #Extract data on each user
+      followingUrl2 = paste("https://api.github.com/users/", followingLogin[j], sep = "")
+      following2 = GET(followingUrl2, gtoken)
+      followingContent2 = content(following2)
+      followingDF2 = jsonlite::fromJSON(jsonlite::toJSON(followingContent2))
+      
+      #Retrieve data on who each of these users follow
+      followingNumber = followingDF2$following
+      
+      #Extract infora=mation and data on the users which this given user follows
+      followersNumber = followingDF2$followers
+      
+      #Retrieve each user's number of repositories
+      reposNumber = followingDF2$public_repos
+      
+      #Extract the data on the year in which the user joined and created their account
+      yearCreated = substr(followingDF2$created_at, start = 1, stop = 4)
+      
+      #Add this user's data to the aforementioned dataframe usersDB
+      usersDB[nrow(usersDB) + 1, ] = c(followingLogin[j], followingNumber, followersNumber, reposNumber, yearCreated)
+      
+    }
+    next
+  }
+  #If statement which ends once the number of users exceeds 100
+  if(length(users) > 100)
+  {
+    break
+  }
+  next
+}
