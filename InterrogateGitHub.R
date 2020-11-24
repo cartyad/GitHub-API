@@ -173,3 +173,5 @@ plot1 = plot_ly(data = usersDB, x = ~repos, y = ~followers,
                 text = ~paste("Followers: ", followers, "<br>Repositories: ", 
                               repos, "<br>Date Created:", dateCreated), color = ~dateCreated)
 plot1
+api_create(plot1, filename = "Repositories vs Followers")
+
