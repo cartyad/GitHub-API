@@ -80,3 +80,9 @@ femurrayData$bio
 #Part 2 - Visualisations
 'For this part of the assignment, I have elcted to visualise and analyse a separate account to my own.My account is quite new 
 and lacks adequate data. So through a google search of active github users, I have selected andrew, Andrew Nesbitt'
+
+myData = GET("https://api.github.com/users/andrew/followers?per_page=100;", gtoken)
+stop_for_status(myData)
+extract = content(myData)
+githubDB = jsonlite::fromJSON(jsonlite::toJSON(extract))
+githubDB$login
