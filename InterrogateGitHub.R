@@ -39,4 +39,5 @@ gitDF[gitDF$full_name == "cartyad/datasharing", "created_at"]
 # https://towardsdatascience.com/accessing-data-from-github-api-using-r-3633fb62cb08
 
 
-myData = fromJSON("https://api.github.com/users/cartyad")
+myData = fromJSON("https://api.github.com/users/cartyad")s
+myData$followers 
