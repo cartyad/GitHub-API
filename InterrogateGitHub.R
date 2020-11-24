@@ -214,3 +214,8 @@ for (i in 1:length(users))
 #Adds the previously ascertained 10 most popular languages to a table top10Languages
 allLanguages = sort(table(languages), increasing=TRUE)
 top10Languages = allLanguages[(length(allLanguages)-9):length(allLanguages)]
+#converts the table top10Languages into a dataframe
+languageDF = as.data.frame(top10Languages)
+#Plot 3 Top 10 Languages
+plot3 = plot_ly(data = languageDF, x = languageDF$languages, y = languageDF$Freq, type = "bar")
+plot3
