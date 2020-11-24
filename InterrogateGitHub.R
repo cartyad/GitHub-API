@@ -48,3 +48,7 @@ followers$login
 
 #Extract the number of accounts which my GitHub account follows from the myData variable
 myData$following
+
+#Uses fromJSON() to assign the data regarding the accounts I follow to the variable following
+following = fromJSON("https://api.github.com/users/cartyad/following")
+following$login 
