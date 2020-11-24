@@ -68,3 +68,11 @@ myData$bio
 #Extracts and displays the data regarding my LowestCommonAncestor project
 LCARepos <- fromJSON("https://api.github.com/repos/cartyad/LowestCommonAncestor/commits")
 LCARepos$commit$message 
+
+#Interrogate the Github API to extract data from another account by switching the username, num followers, num following, num repositories
+femurrayData = fromJSON("https://api.github.com/users/femurray")
+femurrayData$followers 
+femurrayData$following 
+femurrayData$public_repos 
+femurrayData$bio 
+
