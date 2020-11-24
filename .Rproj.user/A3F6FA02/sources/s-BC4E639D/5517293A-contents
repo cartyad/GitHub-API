@@ -90,3 +90,13 @@ githubDB$login
 #Extract the usernames of the followers  
 id = githubDB$login
 user_ids = c(id)
+
+#Create and instantiate a new vector named users which is empty and a dataframe called usersDB which is also empty.
+users = c()
+usersDB = data.frame(
+  username = integer(),
+  following = integer(),
+  followers = integer(),
+  repos = integer(),
+  dateCreated = integer()
+)
