@@ -185,3 +185,28 @@ api_create(plot2, filename = "Following vs Followers")
 
 #Now ascertaining data on 10 most popular languages of the 100 users populating the usersDB dataframe
 languages = c()
+
+for (i in 1:length(users))
+{
+  RepositoriesUrl = paste("https://api.github.com/users/", users[i], "/repos", sep = "")
+  Repositories = GET(RepositoriesUrl, gtoken)
+  RepositoriesContent = content(Repositories)
+  RepositoriesDF = jsonlite::fromJSON(jsonlite::toJSON(RepositoriesContent))
+  RepositoriesNames = RepositoriesDF$name
+
+  for (j in 1: length(RepositoriesNames))
+  {
+    RepositoriesUrl2 = paste("https://api.github.com/repos/", users[i], "/", RepositoriesNames[j], sep = "")
+    Repositories2 = GET(RepositoriesUrl2, gtoken)
+    RepositoriesContent2 = content(Repositories2)
+    RepositoriesDF2 = jsonlite::fromJSON(jsonlite::toJSON(RepositoriesContent2))
+    language = RepositoriesDF2$language
+  
+    if (length(language) != 0 && language != "<NA>")
+    {
+      languages[length(languages)+1] = language
+    }
+    next
+  }
+  next
+}
