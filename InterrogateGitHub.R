@@ -175,3 +175,13 @@ plot1 = plot_ly(data = usersDB, x = ~repos, y = ~followers,
 plot1
 api_create(plot1, filename = "Repositories vs Followers")
 
+
+#plot 2 
+#following vs followers categorised by year
+plot2 = plot_ly(data = usersDB, x = ~following, y = ~followers, text = ~paste("Followers: ", followers, "<br>Following: ", following), color = ~dateCreated)
+plot2
+
+api_create(plot2, filename = "Following vs Followers")
+
+#Now ascertaining data on 10 most popular languages of the 100 users populating the usersDB dataframe
+languages = c()

@@ -182,3 +182,6 @@ plot2 = plot_ly(data = usersDB, x = ~following, y = ~followers, text = ~paste("F
 plot2
 
 api_create(plot2, filename = "Following vs Followers")
+
+#Now ascertaining data on 10 most popular languages of the 100 users populating the usersDB dataframe
+languages = c()
