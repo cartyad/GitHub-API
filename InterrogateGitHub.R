@@ -177,11 +177,9 @@ plot1 = plot_ly(data = usersDB, x = ~repos, y = ~followers,
 usersDB
 plot1
 api_create(plot1, filename = "Repositories vs Followers")
-?gvisMotionChart
-?gvisScatterChart()
+
 gVisPlot1Data<-usersDB[,c(4,3)]
-gVisPlot1Data
-gVisPlot1<- gvisScatterChart(gVisPlot1Data)
+gVisPlot1<- gvisScatterChart(gVisPlot1Data, options = list(hAxes="[{title:'Repositories', titleTextStyle: {color: 'blue'}}]", vAxes="[{title:'Followers', titleTextStyle: {color: 'blue'}}]"))
 plot(gVisPlot1)
 
 
