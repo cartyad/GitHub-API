@@ -174,8 +174,15 @@ Sys.setenv("plotly_api_key"="LIZIJHuZ3vUpowXGoCMj")
 plot1 = plot_ly(data = usersDB, x = ~repos, y = ~followers, 
                 text = ~paste("Followers: ", followers, "<br>Repositories: ", 
                               repos, "<br>Date Created:", dateCreated), color = ~dateCreated)
+usersDB
 plot1
 api_create(plot1, filename = "Repositories vs Followers")
+?gvisMotionChart
+?gvisScatterChart()
+gVisPlot1Data<-usersDB[,c(4,3)]
+gVisPlot1Data
+gVisPlot1<- gvisScatterChart(gVisPlot1Data)
+plot(gVisPlot1)
 
 
 #plot 2 
