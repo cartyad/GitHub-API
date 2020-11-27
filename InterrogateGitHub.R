@@ -8,6 +8,8 @@ library(httr)
 library(plotly)
 #install.packages("devtools")
 require(devtools)
+#install.packages("googleVis")
+require(googleVis)
 
 
 # Can be github, linkedin etc depending on application
