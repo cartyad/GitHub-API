@@ -178,6 +178,7 @@ usersDB
 plot1
 api_create(plot1, filename = "Repositories vs Followers")
 
+#Google Visualisation ~ Repositories vs Followers
 gVisPlot1Data<-usersDB[,c(4,3)]
 gVisPlot1<- gvisScatterChart(gVisPlot1Data, options = list(hAxes="[{title:'Repositories', titleTextStyle: {color: 'blue'}}]", vAxes="[{title:'Followers', titleTextStyle: {color: 'blue'}}]"))
 plot(gVisPlot1)
@@ -189,6 +190,7 @@ plot2 = plot_ly(data = usersDB, x = ~following, y = ~followers, text = ~paste("F
 plot2
 api_create(plot2, filename = "Following vs Followers")
 
+#Google Visualisation ~ Following vs Followers
 gVisPlot2Data<-usersDB[,c(2,3)]
 gVisPlot2<- gvisScatterChart(gVisPlot2Data, options = list(hAxes="[{title:'Following', titleTextStyle: {color: 'blue'}}]", vAxes="[{title:'Followers', titleTextStyle: {color: 'blue'}}]"))
 plot(gVisPlot2)
@@ -231,6 +233,11 @@ languageDF
 plot3 = plot_ly(data = languageDF, x = languageDF$languages, y = languageDF$Freq, type = "bar")
 plot3
 api_create(plot3, filename = "10 Most Popular Languages")
-?gvisBarChart
-gVisPlot3 <- gvisBarChart(languageDF)
+
+#Google Visualisation ~ Top 10 Programming Languages
+gVisPlot3 <- gvisBarChart(languageDF,
+                          options = list(title="Top 10 Programming Languages", 
+                          hAxes="[{title:'Frequency', titleTextStyle: {color: 'blue'}}]", 
+                          vAxes="[{title:'Languages', titleTextStyle: {color: 'blue'}}]",
+                          height=500))
 plot(gVisPlot3)
