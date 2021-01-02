@@ -259,3 +259,29 @@ library("wordcloud")
 library("RColorBrewer")
 library("syuzhet")
 library("ggplot2")
+
+
+data2 = GET("https://api.github.com/repos/fabpot/symfony/comments", gtoken)
+stop_for_status(data2)
+extract2 = content(data2)
+githubDB2 = jsonlite::fromJSON(jsonlite::toJSON(extract2))
+TextDoc<-githubDB2$body
+TextDoc <- Corpus(VectorSource(TextDoc))
+# Convert the text to lower case
+TextDoc <- tm_map(TextDoc, content_transformer(tolower))
+TextDoc
+
+# Build a term-document matrix
+TextDoc_dtm <- TermDocumentMatrix(TextDoc)
+dtm_m <- as.matrix(TextDoc_dtm)
+# Sort by descearing value of frequency
+dtm_v <- sort(rowSums(dtm_m),decreasing=TRUE)
+dtm_d <- data.frame(word = names(dtm_v),freq=dtm_v)
+# Display the top 5 most frequent words
+head(dtm_d, 10)
+
+# Plot the most frequent words
+barplot(dtm_d[1:5,]$freq, las = 2, names.arg = dtm_d[1:5,]$word,
+        col ="lightgreen", main ="Top 5 most frequent words",
+        ylab = "Word frequencies")
+
