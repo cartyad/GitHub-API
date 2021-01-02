@@ -241,3 +241,21 @@ gVisPlot3 <- gvisBarChart(languageDF,
                           vAxes="[{title:'Languages', titleTextStyle: {color: 'blue'}}]",
                           height=500))
 plot(gVisPlot3)
+
+####################################
+#Sentiment Analysis
+####################################
+# Install
+install.packages("tm")  # for text mining
+install.packages("SnowballC") # for text stemming
+install.packages("wordcloud") # word-cloud generator 
+install.packages("RColorBrewer") # color palettes
+install.packages("syuzhet") # for sentiment analysis
+install.packages("ggplot2") # for plotting graphs
+# Load
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+library("syuzhet")
+library("ggplot2")
