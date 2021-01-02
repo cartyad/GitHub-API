@@ -1,14 +1,14 @@
-#install.packages("jsonlite")
+install.packages("jsonlite")
 library(jsonlite)
-#install.packages("httpuv")
+install.packages("httpuv")
 library(httpuv)
-#install.packages("httr")
+install.packages("httr")
 library(httr)
-#install.packages("plotly")
+install.packages("plotly")
 library(plotly)
-#install.packages("devtools")
+install.packages("devtools")
 require(devtools)
-#install.packages("googleVis")
+install.packages("googleVis")
 require(googleVis)
 
 
@@ -242,16 +242,16 @@ gVisPlot3 <- gvisBarChart(languageDF,
                           height=500))
 plot(gVisPlot3)
 
-####################################
-#Sentiment Analysis
-####################################
+###############################################################
+#Plot of the most commonly used word in the comments of commits
+###############################################################
 # Install
-install.packages("tm")  # for text mining
-install.packages("SnowballC") # for text stemming
-install.packages("wordcloud") # word-cloud generator 
-install.packages("RColorBrewer") # color palettes
-install.packages("syuzhet") # for sentiment analysis
-install.packages("ggplot2") # for plotting graphs
+install.packages("tm")
+install.packages("SnowballC") 
+install.packages("wordcloud")  
+install.packages("RColorBrewer") 
+install.packages("syuzhet") 
+install.packages("ggplot2") 
 # Load
 library("tm")
 library("SnowballC")
@@ -291,6 +291,10 @@ wordcloud(words = dtm_d$word, freq = dtm_d$freq, min.freq = 5,
           max.words=100, random.order=FALSE, rot.per=0.40, 
           colors=brewer.pal(8, "Dark2"))
 #################################################################################################################################################
+
+###############################################################
+#Plot of the most commonly used word in the message of commits
+###############################################################
 
 data2 = GET("https://api.github.com/repos/torvalds/linux/commits?per_page=10000;", gtoken)
 stop_for_status(data2)
