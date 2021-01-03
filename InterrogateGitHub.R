@@ -194,6 +194,7 @@ rownames(td_new) <- NULL
 td_new2<-td_new[1:8,]
 #Plot One - count of words associated with each sentiment
 CommentSentimentPlot<-quickplot(sentiment, data=td_new2, weight=count, geom="bar", fill=sentiment, ylab="count")+ggtitle("Comment Message Sentiments")
+plot(CommentSentimentPlot)
 CommentSentimentPlot<-gvisBarChart(td_new2,options = list(title="Comment Message Sentiments", 
                                                           hAxes="[{title:'Frequency', titleTextStyle: {color: 'blue'}}]", 
                                                           vAxes="[{title:'Emotion', titleTextStyle: {color: 'blue'}}]",
@@ -297,7 +298,8 @@ td_new <- cbind("sentiment" = rownames(td_new), td_new)
 rownames(td_new) <- NULL
 td_new2<-td_new[1:8,]
 #Plot One - count of words associated with each sentiment
-CommitMessageSentimentPlotquickplot(sentiment, data=td_new2, weight=count, geom="bar", fill=sentiment, ylab="count")+ggtitle("Commit Message Sentiments")
+CommitMessageSentimentPlot<-quickplot(sentiment, data=td_new2, weight=count, geom="bar", fill=sentiment, ylab="count")+ggtitle("Commit Message Sentiments")
+plot(CommitMessageSentimentPlot)
 CommitMessageSentimentPlot<-gvisBarChart(td_new2,options = list(title="Comment Message Sentiments", 
                                                                 hAxes="[{title:'Frequency', titleTextStyle: {color: 'blue'}}]", 
                                                                 vAxes="[{title:'Emotion', titleTextStyle: {color: 'blue'}}]",
