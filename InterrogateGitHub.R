@@ -366,13 +366,3 @@ rbind(
   sign(head(afinn_vector))
 )
 
-# run nrc sentiment analysis to return data frame with each row classified as one of the following
-# emotions, rather than a score: 
-# anger, anticipation, disgust, fear, joy, sadness, surprise, trust 
-# It also counts the number of positive and negative emotions found in each row
-
-TextDocVector<-as.vector(TextDocOriginal)
-TextDocVector
-d<-get_nrc_sentiment(TextDocVector)
-# head(d,10) - to see top 10 lines of the get_nrc_sentiment dataframe
-head (d,10)
