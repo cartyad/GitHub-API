@@ -268,15 +268,15 @@ data2 = GET("https://api.github.com/repos/torvalds/linux/comments?per_page=10000
 stop_for_status(data2)
 extract2 = content(data2)
 githubDB2 = jsonlite::fromJSON(jsonlite::toJSON(extract2))
-TextDoc<-githubDB2$body
-TextDoc <- Corpus(VectorSource(TextDoc))
+TextDocOriginal1<-githubDB2$body
+TextDoc1 <- Corpus(VectorSource(TextDocOriginal1))
 # Convert the text to lower case
-TextDoc <- tm_map(TextDoc, content_transformer(tolower))
-TextDoc
+TextDoc1 <- tm_map(TextDoc1, content_transformer(tolower))
+TextDoc1
 
 # Build a term-document matrix
-TextDoc_dtm <- TermDocumentMatrix(TextDoc)
-dtm_m <- as.matrix(TextDoc_dtm)
+TextDoc1_dtm <- TermDocumentMatrix(TextDoc1)
+dtm_m <- as.matrix(TextDoc1_dtm)
 # Sort by descearing value of frequency
 dtm_v <- sort(rowSums(dtm_m),decreasing=TRUE)
 dtm_d <- data.frame(word = names(dtm_v),freq=dtm_v)
@@ -290,9 +290,68 @@ barplot(dtm_d[1:5,]$freq, las = 2, names.arg = dtm_d[1:5,]$word,
 
 #generate word cloud
 set.seed(1234)
-wordcloud(words = dtm_d$word, freq = dtm_d$freq, min.freq = 5,
+wordcloud(words = dtm_d$word, freq = dtm_d$freq, min.freq = 3,
           max.words=100, random.order=FALSE, rot.per=0.40, 
           colors=brewer.pal(8, "Dark2"))
+
+
+# Find associations 
+findAssocs(TextDoc1_dtm, terms = c("perf","pub","fix","add"), corlimit = 0.25)
+
+# Find associations for words that occur at least 50 times
+findAssocs(TextDoc1_dtm, terms = findFreqTerms(TextDoc1_dtm, lowfreq = 50), corlimit = 0.25)
+
+
+'"Bing," "AFINN," and "NRC" are all simple lexicons:  each is a list of words with a precomputed positive or
+ negative "score" for each word, and Syuzhet computes the valence of a sentence by simply adding together the 
+ scores of every word in it.'
+
+syuzhet_vector <- get_sentiment(TextDoc1, method="syuzhet")
+syuzhet_vector[1]
+# see the first row of the vector
+head(syuzhet_vector)
+# see summary statistics of the vector
+summary(syuzhet_vector)
+
+# bing
+bing_vector <- get_sentiment(TextDoc1, method="bing")
+bing_vector[1]
+head(bing_vector)
+summary(bing_vector)
+
+#affin
+afinn_vector <- get_sentiment(TextDoc1, method="afinn")
+afinn_vector[1]
+head(afinn_vector)
+summary(afinn_vector)
+
+
+vector1<-c()
+for(i in 1:length(TextDocOriginal1)){
+  vector1<-append(vector1,TextDocOriginal1[[i]]) 
+}
+vector1  
+d<-get_nrc_sentiment(vector1)
+# head(d,10) - to see top 10 lines of the get_nrc_sentiment dataframe
+head (d,10)
+
+#transpose
+td<-data.frame(t(d))
+#The function rowSums computes column sums across rows for each level of a grouping variable.
+td_new <- data.frame(rowSums(td[1:length(td)]))
+#Transformation and cleaning
+names(td_new)[1] <- "count"
+td_new <- cbind("sentiment" = rownames(td_new), td_new)
+rownames(td_new) <- NULL
+td_new2<-td_new[1:8,]
+#Plot One - count of words associated with each sentiment
+CommentSentimentPlot<-quickplot(sentiment, data=td_new2, weight=count, geom="bar", fill=sentiment, ylab="count")+ggtitle("Comment Message Sentiments")
+CommentSentimentPlot<-gvisBarChart(td_new2,options = list(title="Comment Message Sentiments", 
+                                                          hAxes="[{title:'Frequency', titleTextStyle: {color: 'blue'}}]", 
+                                                          vAxes="[{title:'Emotion', titleTextStyle: {color: 'blue'}}]",
+                                                          height=500))
+plot(CommentSentimentPlot)
+
 #################################################################################################################################################
 
 ###############################################################
@@ -376,3 +435,22 @@ vector1
 d<-get_nrc_sentiment(vector1)
 # head(d,10) - to see top 10 lines of the get_nrc_sentiment dataframe
 head (d,10)
+
+#transpose
+td<-data.frame(t(d))
+#The function rowSums computes column sums across rows for each level of a grouping variable.
+td_new <- data.frame(rowSums(td[1:length(td)]))
+#Transformation and cleaning
+names(td_new)[1] <- "count"
+td_new <- cbind("sentiment" = rownames(td_new), td_new)
+rownames(td_new) <- NULL
+td_new2<-td_new[1:8,]
+#Plot One - count of words associated with each sentiment
+CommitMessageSentimentPlotquickplot(sentiment, data=td_new2, weight=count, geom="bar", fill=sentiment, ylab="count")+ggtitle("Commit Message Sentiments")
+CommitMessageSentimentPlot<-gvisBarChart(td_new2,options = list(title="Comment Message Sentiments", 
+                                                          hAxes="[{title:'Frequency', titleTextStyle: {color: 'blue'}}]", 
+                                                          vAxes="[{title:'Emotion', titleTextStyle: {color: 'blue'}}]",
+                                                          height=500))
+plot(CommitMessageSentimentPlot)
+
+#######################################################################################################################################################
