@@ -245,6 +245,9 @@ plot(gVisPlot3)
 ###############################################################
 #Plot of the most commonly used word in the comments of commits
 ###############################################################
+
+#Source: https://www.red-gate.com/simple-talk/sql/bi/text-mining-and-sentiment-analysis-with-r/
+
 # Install
 install.packages("tm")
 install.packages("SnowballC") 
@@ -296,13 +299,15 @@ wordcloud(words = dtm_d$word, freq = dtm_d$freq, min.freq = 5,
 #Plot of the most commonly used word in the message of commits
 ###############################################################
 
+#Source: https://www.red-gate.com/simple-talk/sql/bi/text-mining-and-sentiment-analysis-with-r/
+
 data2 = GET("https://api.github.com/repos/torvalds/linux/commits?per_page=10000;", gtoken)
 stop_for_status(data2)
 extract2 = content(data2)
 githubDB2 = jsonlite::fromJSON(jsonlite::toJSON(extract2))
-TextDoc<-githubDB2$commit$message
-TextDoc
-TextDoc <- Corpus(VectorSource(TextDoc))
+TextDocOriginal<-githubDB2$commit$message
+TextDocOriginal
+TextDoc <- Corpus(VectorSource(TextDocOriginal))
 toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
 TextDoc <- tm_map(TextDoc, toSpace, "/")
 TextDoc <- tm_map(TextDoc, toSpace, "@")
@@ -318,7 +323,7 @@ dtm_m <- as.matrix(TextDoc_dtm)
 dtm_v <- sort(rowSums(dtm_m),decreasing=TRUE)
 dtm_d <- data.frame(word = names(dtm_v),freq=dtm_v)
 # Display the top 5 most frequent words
-head(dtm_d, 10)
+head(dtm_d,0)
 
 # Plot the most frequent words
 barplot(dtm_d[1:5,]$freq, las = 2, names.arg = dtm_d[1:5,]$word,
@@ -330,3 +335,44 @@ set.seed(1234)
 wordcloud(words = dtm_d$word, freq = dtm_d$freq, min.freq = 5,
           max.words=100, random.order=FALSE, rot.per=0.40, 
           colors=brewer.pal(8, "Dark2"))
+
+# Find associations 
+findAssocs(TextDoc_dtm, terms = c("perf","pub","fix","add"), corlimit = 0.25)
+
+# Find associations for words that occur at least 50 times
+findAssocs(TextDoc_dtm, terms = findFreqTerms(TextDoc_dtm, lowfreq = 50), corlimit = 0.25)
+
+
+# regular sentiment score using get_sentiment() function and method of your choice
+# please note that different methods may have different scales
+syuzhet_vector <- get_sentiment(TextDoc, method="syuzhet")
+# see the first row of the vector
+head(syuzhet_vector)
+# see summary statistics of the vector
+summary(syuzhet_vector)
+# bing
+bing_vector <- get_sentiment(TextDoc, method="bing")
+head(bing_vector)
+summary(bing_vector)
+#affin
+afinn_vector <- get_sentiment(TextDoc, method="afinn")
+head(afinn_vector)
+summary(afinn_vector)
+
+#compare the first row of each vector using sign function
+rbind(
+  sign(head(syuzhet_vector)),
+  sign(head(bing_vector)),
+  sign(head(afinn_vector))
+)
+
+# run nrc sentiment analysis to return data frame with each row classified as one of the following
+# emotions, rather than a score: 
+# anger, anticipation, disgust, fear, joy, sadness, surprise, trust 
+# It also counts the number of positive and negative emotions found in each row
+
+TextDocVector<-as.vector(TextDocOriginal)
+TextDocVector
+d<-get_nrc_sentiment(TextDocVector)
+# head(d,10) - to see top 10 lines of the get_nrc_sentiment dataframe
+head (d,10)
