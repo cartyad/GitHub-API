@@ -325,6 +325,7 @@ dtm_d <- data.frame(word = names(dtm_v),freq=dtm_v)
 # Display the top 5 most frequent words
 head(dtm_d,0)
 
+
 # Plot the most frequent words
 barplot(dtm_d[1:5,]$freq, las = 2, names.arg = dtm_d[1:5,]$word,
         col ="lightgreen", main ="Top 5 most frequent words",
@@ -343,26 +344,35 @@ findAssocs(TextDoc_dtm, terms = c("perf","pub","fix","add"), corlimit = 0.25)
 findAssocs(TextDoc_dtm, terms = findFreqTerms(TextDoc_dtm, lowfreq = 50), corlimit = 0.25)
 
 
-# regular sentiment score using get_sentiment() function and method of your choice
-# please note that different methods may have different scales
+'"Bing," "AFINN," and "NRC" are all simple lexicons:  each is a list of words with a precomputed positive or
+ negative "score" for each word, and Syuzhet computes the valence of a sentence by simply adding together the 
+ scores of every word in it.'
+
 syuzhet_vector <- get_sentiment(TextDoc, method="syuzhet")
+syuzhet_vector[1]
 # see the first row of the vector
 head(syuzhet_vector)
 # see summary statistics of the vector
 summary(syuzhet_vector)
+
 # bing
 bing_vector <- get_sentiment(TextDoc, method="bing")
+bing_vector[1]
 head(bing_vector)
 summary(bing_vector)
+
 #affin
 afinn_vector <- get_sentiment(TextDoc, method="afinn")
+afinn_vector[1]
 head(afinn_vector)
 summary(afinn_vector)
 
-#compare the first row of each vector using sign function
-rbind(
-  sign(head(syuzhet_vector)),
-  sign(head(bing_vector)),
-  sign(head(afinn_vector))
-)
 
+vector1<-c()
+for(i in 1:length(TextDocOriginal)){
+  vector1<-append(vector1,TextDocOriginal[[i]]) 
+}
+vector1  
+d<-get_nrc_sentiment(vector1)
+# head(d,10) - to see top 10 lines of the get_nrc_sentiment dataframe
+head (d,10)
