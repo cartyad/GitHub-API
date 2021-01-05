@@ -85,7 +85,8 @@ femurrayData$bio
 
 #Part 2 - Visualisations
 'For this part of the assignment, I have elcted to visualise and analyse a separate account to my own.My account is quite new 
-and lacks adequate data. So through a google search of active github users, I have selected andrew, Andrew Nesbitt'
+and lacks adequate data. So through a google search of active github users, I have selected andrew, Andrew Nesbitt and torvalds
+repositoy; linux'
 
 ###############################################################
 #Plot of the most commonly used word in the comments of commits
@@ -451,7 +452,7 @@ top10Languages = allLanguages[(length(allLanguages)-9):length(allLanguages)]
 #converts the table top10Languages into a dataframe
 languageDF = as.data.frame(top10Languages)
 languageDF
-#Plot 3 Top 10 Languages
+#Plot 3: Top 10 Languages
 plot3 = plot_ly(data = languageDF, x = languageDF$languages, y = languageDF$Freq, type = "bar")
 plot3
 api_create(plot3, filename = "10 Most Popular Languages")
