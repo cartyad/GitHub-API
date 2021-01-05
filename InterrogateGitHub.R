@@ -210,7 +210,7 @@ plot(CommentSentimentPlot)
 
 #Source: https://www.red-gate.com/simple-talk/sql/bi/text-mining-and-sentiment-analysis-with-r/
 
-data2 = GET("https://api.github.com/repos/torvalds/linux/commits?per_page=10000;", gtoken)
+data2 = GET("https://api.github.com/repos/torvalds/linux/commits?per_page=100000;", gtoken)
 stop_for_status(data2)
 extract2 = content(data2)
 githubDB2 = jsonlite::fromJSON(jsonlite::toJSON(extract2))
