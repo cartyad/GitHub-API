@@ -136,7 +136,7 @@ barplot(dtm_d[1:5,]$freq, las = 2, names.arg = dtm_d[1:5,]$word,
 
 #generate word cloud
 set.seed(1234)
-wordcloud(words = dtm_d$word, freq = dtm_d$freq, min.freq = 3,
+wordcloud(words = dtm_d$word, freq = dtm_d$freq, min.freq = 2,
           max.words=100, random.order=FALSE, rot.per=0.40, 
           colors=brewer.pal(8, "Dark2"))
 
@@ -242,7 +242,7 @@ barplot(dtm_d[1:5,]$freq, las = 2, names.arg = dtm_d[1:5,]$word,
 
 #generate word cloud
 set.seed(1234)
-wordcloud(words = dtm_d$word, freq = dtm_d$freq, min.freq = 5,
+wordcloud(words = dtm_d$word,main ="Top 5 most frequent words", freq = dtm_d$freq, min.freq = 5,
           max.words=100, random.order=FALSE, rot.per=0.40, 
           colors=brewer.pal(8, "Dark2"))
 
