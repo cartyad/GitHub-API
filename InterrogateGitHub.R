@@ -10,7 +10,46 @@ install.packages("devtools")
 require(devtools)
 install.packages("googleVis")
 require(googleVis)
-
+install.packages("rlist")
+library(rlist)
+install.packages("pipeR")
+library(pipeR)
+install.packages("dplyr")
+library(dplyr)
+install.packages("tidytext")
+library(tidytext)
+install.packages("stringr")
+library(stringr)
+install.packages("textdata")
+library(textdata)
+install.packages("wordcloud")
+library(wordcloud)
+install.packages("tibble")
+library(tibble)
+install.packages("datetime")
+library(datetime)
+install.packages("lubricate")
+library(lubridate)
+install.packages("zoo")
+library(zoo)
+install.packages("tidyverse")
+library(tidyverse)
+install.packages("forecast")
+library(forecast)
+install.packages("RColorBrewer")
+library(RColorBrewer)
+install.packages("tm")
+library("tm")
+install.packages("SnowballC") 
+library("SnowballC")
+install.packages("wordcloud")
+library("wordcloud")
+install.packages("RColorBrewer")
+library("RColorBrewer")
+install.packages("syuzhet")
+library("syuzhet")
+install.packages("ggplot2") 
+library("ggplot2")
 
 # Can be github, linkedin etc depending on application
 
@@ -93,21 +132,6 @@ repositoy; linux'
 ###############################################################
 
 #Source: https://www.red-gate.com/simple-talk/sql/bi/text-mining-and-sentiment-analysis-with-r/
-
-# Install
-install.packages("tm")
-install.packages("SnowballC") 
-install.packages("wordcloud")  
-install.packages("RColorBrewer") 
-install.packages("syuzhet") 
-install.packages("ggplot2") 
-# Load
-library("tm")
-library("SnowballC")
-library("wordcloud")
-library("RColorBrewer")
-library("syuzhet")
-library("ggplot2")
 
 ############################################################################################################################################
 data2 = GET("https://api.github.com/repos/torvalds/linux/comments?per_page=10000;", gtoken)
@@ -307,6 +331,17 @@ CommitMessageSentimentPlot<-gvisBarChart(td_new2,options = list(title="Comment M
                                                                 height=500))
 plot(CommitMessageSentimentPlot)
 
+###############################################################
+#Plot Number of Commits by Week 
+###############################################################
+
+CommitsPerWeek <- "https://api.github.com/repos/torvalds/linux/stats/participation" %>>% list.load("json") %>>% list.ungroup
+CommitsPerWeek <- CommitsPerWeek[1:52]
+plot(CommitsPerWeek, type="l", main = "Commits Per Week", xlab = "Weeks", ylab="Weekly Commits")
+head(CommitsPerWeek)
+CommitsPerWeek<-as.data.frame(CommitsPerWeek)
+PlotCommitsPerWeek<-gvisLineChart(CommitsPerWeek, xvar = CommitsPerWeek[1,], yvar = CommitsPerWeek[2,])
+plot(PlotCommitsPerWeek)
 #######################################################################################################################################################
 
 
