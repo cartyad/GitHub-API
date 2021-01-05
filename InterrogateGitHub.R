@@ -338,10 +338,7 @@ plot(CommitMessageSentimentPlot)
 CommitsPerWeek <- "https://api.github.com/repos/torvalds/linux/stats/participation" %>>% list.load("json") %>>% list.ungroup
 CommitsPerWeek <- CommitsPerWeek[1:52]
 plot(CommitsPerWeek, type="l", main = "Commits Per Week", xlab = "Weeks", ylab="Weekly Commits")
-head(CommitsPerWeek)
-CommitsPerWeek<-as.data.frame(CommitsPerWeek)
-PlotCommitsPerWeek<-gvisLineChart(CommitsPerWeek, xvar = CommitsPerWeek[1,], yvar = CommitsPerWeek[2,])
-plot(PlotCommitsPerWeek)
+
 #######################################################################################################################################################
 
 
